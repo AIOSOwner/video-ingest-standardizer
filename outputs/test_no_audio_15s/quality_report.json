@@ -1,0 +1,24 @@
+{
+  "artifact": "quality_report",
+  "diagnostics": {
+    "audio_availability": "absent",
+    "bitrate_bits_per_sec": 13266,
+    "duration_seconds": 15,
+    "frame_rate": 25,
+    "resolution": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  "primary_streams": {
+    "audio_codec": null,
+    "video_codec": "h264"
+  },
+  "risk_flags": [],
+  "schema_version": "1.0.0",
+  "stream_usability": {
+    "audio": "absent",
+    "video": "usable"
+  },
+  "warnings": []
+}

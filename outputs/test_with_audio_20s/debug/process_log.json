@@ -1,0 +1,39 @@
+{
+  "artifact": "process_log",
+  "pipeline_status": "completed",
+  "schema_version": "1.0.0",
+  "steps": [
+    {
+      "detail": {},
+      "name": "probe",
+      "status": "ok"
+    },
+    {
+      "detail": {},
+      "name": "timeline",
+      "status": "ok"
+    },
+    {
+      "detail": {},
+      "name": "subtitle_report",
+      "status": "ok"
+    },
+    {
+      "detail": {},
+      "name": "quality_report",
+      "status": "ok"
+    },
+    {
+      "detail": {
+        "reason": "ok"
+      },
+      "name": "audio_extract",
+      "status": "ok"
+    },
+    {
+      "detail": {},
+      "name": "manifest",
+      "status": "ok"
+    }
+  ]
+}

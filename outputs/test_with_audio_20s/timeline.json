@@ -1,0 +1,35 @@
+{
+  "artifact": "timeline",
+  "coverage_role_enum": [
+    "full",
+    "leading_partial",
+    "trailing_partial"
+  ],
+  "duration_seconds": 20,
+  "schema_version": "1.0.0",
+  "segment_count": 2,
+  "segments": [
+    {
+      "analysis_hints": {
+        "audio_activity_present": true
+      },
+      "coverage_role": "leading_partial",
+      "cut_reason": "deterministic_equal_split",
+      "duration": 10,
+      "end": 10,
+      "segment_id": "seg_000",
+      "start": 0
+    },
+    {
+      "analysis_hints": {
+        "audio_activity_present": true
+      },
+      "coverage_role": "trailing_partial",
+      "cut_reason": "deterministic_equal_split",
+      "duration": 10,
+      "end": 20,
+      "segment_id": "seg_001",
+      "start": 10
+    }
+  ]
+}

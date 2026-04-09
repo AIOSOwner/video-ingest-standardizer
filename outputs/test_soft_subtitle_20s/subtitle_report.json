@@ -1,0 +1,22 @@
+{
+  "artifact": "subtitle_report",
+  "classification": "soft_subtitle",
+  "classification_enum": [
+    "none",
+    "soft_subtitle",
+    "suspected_hard_subtitle",
+    "mixed"
+  ],
+  "confidence": {
+    "heuristic_hard_sub_score": 0,
+    "subtitle_track_score": 1
+  },
+  "evidence": {
+    "subtitle_codec_kind_count": 1,
+    "subtitle_stream_count": 1,
+    "track_inventory_agrees_with_media_context": true,
+    "video_stream_count": 1
+  },
+  "recommended_handling": "extract_or_mux_soft_subtitle_streams",
+  "schema_version": "1.0.0"
+}

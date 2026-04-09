@@ -1,0 +1,66 @@
+{
+  "artifact": "tracks",
+  "schema_version": "1.0.0",
+  "stream_count": 3,
+  "tracks": [
+    {
+      "avg_frame_rate": "25/1",
+      "bit_rate": "13134",
+      "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+      "codec_name": "h264",
+      "disposition": {
+        "default": 1,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0
+      },
+      "duration": "17.880000",
+      "height": 720,
+      "order_index": 0,
+      "pix_fmt": "yuv420p",
+      "profile": "High",
+      "r_frame_rate": "25/1",
+      "stream_index": 0,
+      "stream_type": "video",
+      "width": 1280
+    },
+    {
+      "avg_frame_rate": "0/0",
+      "bit_rate": "69183",
+      "channel_layout": "mono",
+      "channels": 1,
+      "codec_long_name": "AAC (Advanced Audio Coding)",
+      "codec_name": "aac",
+      "disposition": {
+        "default": 1,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0
+      },
+      "duration": "17.984000",
+      "order_index": 1,
+      "profile": "LC",
+      "r_frame_rate": "0/0",
+      "sample_rate": "48000",
+      "stream_index": 1,
+      "stream_type": "audio"
+    },
+    {
+      "avg_frame_rate": "0/0",
+      "bit_rate": "48",
+      "codec_long_name": "MOV text",
+      "codec_name": "mov_text",
+      "disposition": {
+        "default": 1,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0
+      },
+      "duration": "18.000000",
+      "order_index": 2,
+      "r_frame_rate": "0/0",
+      "stream_index": 2,
+      "stream_type": "subtitle"
+    }
+  ]
+}

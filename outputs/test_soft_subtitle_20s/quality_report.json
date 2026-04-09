@@ -1,0 +1,24 @@
+{
+  "artifact": "quality_report",
+  "diagnostics": {
+    "audio_availability": "available",
+    "bitrate_bits_per_sec": 82365,
+    "duration_seconds": 18,
+    "frame_rate": 25,
+    "resolution": {
+      "height": 720,
+      "width": 1280
+    }
+  },
+  "primary_streams": {
+    "audio_codec": "aac",
+    "video_codec": "h264"
+  },
+  "risk_flags": [],
+  "schema_version": "1.0.0",
+  "stream_usability": {
+    "audio": "usable",
+    "video": "usable"
+  },
+  "warnings": []
+}

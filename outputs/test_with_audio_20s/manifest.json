@@ -1,0 +1,39 @@
+{
+  "artifact": "manifest",
+  "artifacts_present": [
+    "audio/source_full.wav",
+    "debug/ffprobe_raw.json",
+    "debug/media_context.json",
+    "debug/process_log.json",
+    "manifest.json",
+    "quality_report.json",
+    "subtitle_report.json",
+    "timeline.json",
+    "tracks.json"
+  ],
+  "conditional_audio": {
+    "extracted": true,
+    "path": "audio/source_full.wav"
+  },
+  "input_identity": {
+    "path_basename": "test_with_audio_20s.mp4"
+  },
+  "pipeline_status": "completed",
+  "required_outputs_declared": [
+    "manifest.json",
+    "tracks.json",
+    "timeline.json",
+    "subtitle_report.json",
+    "quality_report.json"
+  ],
+  "schema_version": "1.0.0",
+  "schema_versions": {
+    "debug_ffprobe_raw": "1.0.0",
+    "debug_process_log": "1.0.0",
+    "manifest": "1.0.0",
+    "quality_report": "1.0.0",
+    "subtitle_report": "1.0.0",
+    "timeline": "1.0.0",
+    "tracks": "1.0.0"
+  }
+}

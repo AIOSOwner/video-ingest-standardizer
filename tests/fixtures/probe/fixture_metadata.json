@@ -1,0 +1,9 @@
+{
+  "fixture_id": "sample_normalized_v1",
+  "description": "Synthetic normalized ffprobe-like payload for deterministic unit tests (no tags, stable field subset).",
+  "expected": {
+    "stream_count": 3,
+    "audio_usable": true,
+    "subtitle_stream_count": 1
+  }
+}

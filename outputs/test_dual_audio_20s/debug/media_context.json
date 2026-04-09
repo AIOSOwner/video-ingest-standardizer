@@ -1,0 +1,32 @@
+{
+  "artifact": "media_context",
+  "audio_usable": true,
+  "container": {
+    "format_long_name": "QuickTime / MOV",
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2"
+  },
+  "duration": {
+    "seconds": 20
+  },
+  "input_identity": {
+    "path_basename": "test_dual_audio_20s.mp4"
+  },
+  "primary_audio": {
+    "channels": 1,
+    "codec_name": "aac",
+    "sample_rate": "48000",
+    "stream_index": 1
+  },
+  "primary_video": {
+    "height": 720,
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "25/1",
+    "stream_index": 0,
+    "width": 1280
+  },
+  "schema_version": "1.0.0",
+  "subtitle_hints": {
+    "has_soft_subtitles": false,
+    "subtitle_stream_count": 0
+  }
+}
