@@ -1,0 +1,49 @@
+{
+    "project_id": "video-ingest-standardizer",
+    "known_issues": [
+      {
+        "id": "TIMELINE_SEGMENT_QUALITY_BASIC",
+        "type": "quality",
+        "description": "Timeline segmentation is deterministic but does not guarantee semantic boundaries aligned with speech or sentence structure.",
+        "impact": "medium",
+        "fix_phase": "post-merge"
+      },
+      {
+        "id": "AUDIO_EXTRACTION_ASSUMPTION",
+        "type": "runtime",
+        "description": "Audio extraction assumes presence of a usable audio stream; edge cases (silent tracks, corrupted streams) may not be fully validated.",
+        "impact": "medium",
+        "fix_phase": "merge"
+      },
+      {
+        "id": "NO_AUDIO_QUALITY_SIGNAL",
+        "type": "quality",
+        "description": "No signal for audio clarity, noise level, or speech presence is included in output artifacts.",
+        "impact": "low",
+        "fix_phase": "post-merge"
+      },
+      {
+        "id": "SUBTITLE_TRACK_UNUSED",
+        "type": "feature_gap",
+        "description": "Subtitle streams are detected but not used to enhance timeline or downstream transcription alignment.",
+        "impact": "low",
+        "fix_phase": "post-merge"
+      }
+    ],
+    "contract_assumptions": [
+      "timeline.json contains strict segment_id, start, end, duration with no overlap",
+      "audio/source_full.wav exists only if audio stream is valid",
+      "timeline fully covers most of the video duration",
+      "segment ordering is stable and deterministic"
+    ],
+    "merge_risks": [
+      "Timeline segmentation may not align well with speech boundaries for STT module",
+      "Audio file format assumptions (wav) may not match STT engine expectations",
+      "Segment duration may be too short or too long for optimal transcription accuracy"
+    ],
+    "integration_notes": [
+      "Downstream modules must treat timeline as authoritative and not modify boundaries",
+      "STT module should not assume semantic segmentation from timeline",
+      "Audio path should be validated before passing to transcript module"
+    ]
+  }
