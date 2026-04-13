@@ -1,80 +1,82 @@
 "use strict";
 
-const { ERROR_CODES, makeError, printFailureAndExit } = require("./errors");
-const { assertAbsolutePath } = require("./paths");
-const { runPipeline } = require("./pipeline");
+const fs = require("fs");
+const path = require("path");
+const { runIngestStage } = require("./pipeline");
 
 function parseArgs(argv) {
-  const out = {
-    video_path: null,
-    output_dir: null,
-  };
+  let input_json = null;
+  let output_dir = null;
 
   for (const token of argv) {
-    if (!token.startsWith("--")) {
-      throw makeError(
-        ERROR_CODES.INVALID_CLI_USAGE,
-        "Positional args are not allowed",
-        { token }
-      );
-    }
-
-    const eqIndex = token.indexOf("=");
-    if (eqIndex === -1) {
-      throw makeError(
-        ERROR_CODES.INVALID_CLI_USAGE,
-        "Flags must be in --key=value form",
-        { token }
-      );
-    }
-
-    const key = token.slice(2, eqIndex);
-    const value = token.slice(eqIndex + 1);
-
-    if (key !== "video_path" && key !== "output_dir") {
-      throw makeError(
-        ERROR_CODES.INVALID_CLI_USAGE,
-        "Only --video_path and --output_dir are supported",
-        { key }
-      );
-    }
-
-    if (key === "video_path") out.video_path = value;
-    if (key === "output_dir") out.output_dir = value;
+    if (!token.startsWith("--")) continue;
+    const [k, v] = token.replace("--", "").split("=");
+    if (k === "input_json") input_json = v;
+    if (k === "output_dir") output_dir = v;
   }
 
-  if (!out.video_path || !out.output_dir) {
-    throw makeError(
-      ERROR_CODES.INVALID_CLI_USAGE,
-      "Missing required flags",
-      { required_flags: ["--video_path", "--output_dir"] }
-    );
+  if (!input_json || !output_dir) {
+    throw new Error("Missing required args: --input_json and --output_dir");
   }
 
-  const videoError = assertAbsolutePath("video_path", out.video_path);
-  if (videoError) {
-    throw makeError(ERROR_CODES.INVALID_PATH, videoError, { video_path: out.video_path });
-  }
-
-  const outputError = assertAbsolutePath("output_dir", out.output_dir);
-  if (outputError) {
-    throw makeError(ERROR_CODES.INVALID_PATH, outputError, { output_dir: out.output_dir });
-  }
-
-  return out;
+  return { input_json, output_dir };
 }
 
-function dispatchPipeline(inputs) {
-  return runPipeline(inputs.video_path, inputs.output_dir);
+function loadInput(p) {
+  return JSON.parse(fs.readFileSync(p, "utf8"));
+}
+
+function writeOutput(dir, data) {
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(
+    path.join(dir, "stage_output.json"),
+    JSON.stringify(data, null, 2)
+  );
 }
 
 function main() {
+  let output_dir = null;
+
   try {
-    const inputs = parseArgs(process.argv.slice(2));
-    const result = dispatchPipeline(inputs);
-    process.stdout.write(`${JSON.stringify(result)}\n`);
+    const parsed = parseArgs(process.argv.slice(2));
+    output_dir = parsed.output_dir;
+
+    const input = loadInput(parsed.input_json);
+    if (!input.inputs || !input.inputs.video_path) {
+      throw new Error("Missing inputs.video_path");
+    }
+    const videoPath = input.inputs.video_path;
+
+    const result = runIngestStage(videoPath, output_dir);
+
+    const artifacts = {
+      timeline_json: "timeline.json",
+      subtitle_report_json: "subtitle_report.json",
+      quality_report_json: "quality_report.json",
+      manifest_json: "manifest.json"
+    };
+    
+    if (result.audio?.extracted) {
+      artifacts.audio_source_wav = "audio/source_full.wav";
+    }
+
+    writeOutput(output_dir, {
+      status: "SUCCESS",
+      artifacts,
+      error: null
+    });
   } catch (err) {
-    printFailureAndExit(err);
+    if (output_dir) {
+      writeOutput(output_dir, {
+        status: "FAILED",
+        artifacts: {},
+        error: {
+          message: err.message,
+          code: "INGEST_ERROR"
+        }
+      });
+    }
+    process.exit(1);
   }
 }
 
@@ -84,6 +86,7 @@ if (require.main === module) {
 
 module.exports = {
   parseArgs,
-  dispatchPipeline,
+  loadInput,
+  writeOutput,
   main,
 };

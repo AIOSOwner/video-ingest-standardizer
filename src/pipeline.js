@@ -13,7 +13,7 @@ const { buildQualityReportJson } = require("./quality");
 const { extractFullAudioWav } = require("./audio");
 const { buildManifestJson } = require("./manifest");
 
-function runPipeline(videoPath, outputDir) {
+function runIngestStage(videoPath, outputDir) {
   const absVideo = path.resolve(videoPath);
   const absOut = path.resolve(outputDir);
   const paths = resolveOutputPaths(absOut);
@@ -98,17 +98,17 @@ function runPipeline(videoPath, outputDir) {
   };
 }
 
-if (require.main === module) {
-  try {
-    const { parseArgs } = require("./index");
-    const inputs = parseArgs(process.argv.slice(2));
-    const result = runPipeline(inputs.video_path, inputs.output_dir);
-    process.stdout.write(`${JSON.stringify(result)}\n`);
-  } catch (err) {
-    printFailureAndExit(err);
-  }
-}
+// if (require.main === module) {
+//   try {
+//     const { parseArgs } = require("./index");
+//     const inputs = parseArgs(process.argv.slice(2));
+//     const result = runIngestStage(inputs.video_path, inputs.output_dir);
+//     process.stdout.write(`${JSON.stringify(result)}\n`);
+//   } catch (err) {
+//     printFailureAndExit(err);
+//   }
+// }
 
 module.exports = {
-  runPipeline,
+  runIngestStage,
 };
